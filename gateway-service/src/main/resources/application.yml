@@ -6,7 +6,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 101.43.87.239:10020
+        server-addr: ${nacos.address}
     gateway:
       routes: #⽹关路由配置
         - id: user-service #路由ID, ⾃定义, 唯⼀即可
@@ -17,3 +17,30 @@ spring:
           uri: lb://blog-service
           predicates:
             - Path=/blog/**
+      # 网关全局跨域配置
+      globalcors:
+        # 解决options请求被拦截的问题
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns: "*"     #设置允许跨域的来源
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+---
+#开发环境
+spring:
+  config:
+    activate:
+      on-profile: dev
+nacos:
+  address: 101.43.87.239:10020
+
+---
+#生产环境
+spring:
+  config:
+    activate:
+      on-profile: prod
+nacos:
+  address: 127.0.0.1:10020

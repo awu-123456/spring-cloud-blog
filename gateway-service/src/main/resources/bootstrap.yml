@@ -4,5 +4,22 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: 101.43.87.239:10020
+        server-addr: ${nacos.address}
         file-extension: yaml
+---
+#开发环境
+spring:
+  config:
+    activate:
+      on-profile: dev
+nacos:
+  address: 101.43.87.239:10020
+
+---
+#生产环境
+spring:
+  config:
+    activate:
+      on-profile: prod
+nacos:
+  address: 127.0.0.1:10020

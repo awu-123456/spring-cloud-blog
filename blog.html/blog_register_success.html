@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客登陆页</title>
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/register.css">
+
+</head>
+
+<body>
+    <div class="nav">
+        <img src="pic/logo2.jpg" alt="">
+        <span class="blog-title">我的博客系统</span>
+        <div class="space"></div>
+        <a class="nav-span" href="blog_list.html">主页</a>
+        <a class="nav-span" href="blog_edit.html">写博客</a>
+    </div>
+
+    <div class="container-register">
+        <div class="success-dialog">
+            <img src="pic/success.png" width="100">
+            <h2>注册成功</h2>
+
+            <p>3秒后将自动跳转到登录页面...</p>
+            <a href="blog_login.html">直接跳转</a>
+
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/common.js"></script>
+    <script>
+
+        onload = function () {
+            //重复调用一个函数或执行一个代码片段，在每次调用之间具有固定的时间间隔
+            setInterval(go, 3000);   //js单位为ms
+        };
+        
+        function go() {
+            location.href = 'blog_login.html';  // 跳转到登录页面
+        }
+
+    </script>
+</body>
+
+</html>

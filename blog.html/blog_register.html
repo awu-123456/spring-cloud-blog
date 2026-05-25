@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客登陆页</title>
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/register.css">
+
+</head>
+
+<body>
+    <div class="nav">
+        <img src="pic/logo2.jpg" alt="">
+        <span class="blog-title">我的博客系统</span>
+        <div class="space"></div>
+        <a class="nav-span" href="blog_list.html">主页</a>
+        <a class="nav-span" href="blog_edit.html">写博客</a>
+    </div>
+
+    <div class="container-register">
+        <div class="register-dialog">
+            <h3>欢迎注册比特博客社区</h3>
+            <div class="row">
+                <span>用户名</span>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="row">
+                <span>密码</span>
+                <input type="password" name="password" id="password">
+            </div>
+            <div class="row" >
+                <span>github</span>
+                <input type="text" name="githubUrl" id="githubUrl">
+            </div>
+            <div class="row">
+                <span>邮箱</span>
+                <input type="text" name="email" id="email">
+            </div>
+            <div class="row">
+                <button id="submit" onclick="register()">注册</button>
+            </div>
+            <div class="row">
+                <span>已有账号? 返回 <a href="blog_login.html">登录</a></span>
+            </div>
+
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/common.js"></script>
+    <script>
+        
+        function register() {
+            $.ajax({
+                type: "post",
+                url: "/user/register",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "userName": $("#username").val(),
+                    "password": $("#password").val(),
+                    "email": $("#email").val(),
+                    "githubUrl": $("#githubUrl").val()
+                }),
+                success:function(result) {
+                    if(result.code == 200 && result.data != null) {
+                        location.href = "blog_register_success.html";
+                    } else {
+                        alert(result.errMsg);
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -6,16 +6,16 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 101.43.87.239:10020
+        server-addr: ${nacos.address}
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/spring_cloud_user?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     username: root
-    password: "045511"
+    password: ${mysql.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     redis:
       host: 127.0.0.1
-      port: 8888
+      port: ${redis.address}
       timeout: 60s #连接空闲超过N(s秒、ms毫秒)后关闭，0为禁用，这里配置值和tcp-keepalive值一致
       lettuce:
         pool:
@@ -24,7 +24,7 @@ spring:
           min-idle: 0  #最小空闲连接数
           max-wait: 5s  #请求获取连接等待时间
   rabbitmq:
-    addresses: amqp://bite:bite@101.43.87.239:5672/blog
+    addresses: ${rabbitmq.address}
     listener:
       simple:
         acknowledge-mode: manual   #手动确认
@@ -41,3 +41,32 @@ mybatis-plus:
 logging:
   file:
     name: user.log
+---
+#开发环境
+spring:
+  config:
+    activate:
+      on-profile: dev
+nacos:
+  address: 101.43.87.239:10020
+mysql:
+  password: "045511"
+redis:
+  address: 8888
+rabbitmq:
+  address: amqp://bite:bite@101.43.87.239:5672/blog
+
+---
+#生产环境
+spring:
+  config:
+    activate:
+      on-profile: prod
+nacos:
+  address: 127.0.0.1:10020
+mysql:
+  password: "Lyb045511.@"
+redis:
+  address: 6379
+rabbitmq:
+  address: amqp://bite:bite@127.0.0.1:5672/blog

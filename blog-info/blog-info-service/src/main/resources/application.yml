@@ -6,11 +6,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 101.43.87.239:10020
+        server-addr: ${nacos.address}
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/spring_cloud_blog?characterEncoding=utf8&useSSL=false
     username: root
-    password: "045511"
+    password: ${mysql.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
   configuration:
@@ -19,3 +19,24 @@ mybatis-plus:
 logging:
   file:
     name: blog.log
+---
+#开发环境
+spring:
+  config:
+    activate:
+      on-profile: dev
+nacos:
+  address: 101.43.87.239:10020
+mysql:
+  password: "045511"
+
+---
+#生产环境
+spring:
+  config:
+    activate:
+      on-profile: prod
+nacos:
+  address: 127.0.0.1:10020
+mysql:
+  password: "Lyb045511.@"

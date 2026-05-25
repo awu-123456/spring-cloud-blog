@@ -3,8 +3,6 @@ package com.bite.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.bite.blog.api.BlogServiceAPI;
 import com.bite.blog.api.pojo.BlogInfoResponse;
-import com.bite.blog.dataobject.BlogInfo;
-import com.bite.blog.mapper.BlogMapper;
 import com.bite.common.exception.BlogException;
 import com.bite.common.pojo.Result;
 import com.bite.common.utils.*;
@@ -16,9 +14,7 @@ import com.bite.user.convert.BeanConvert;
 import com.bite.user.dataobject.UserInfo;
 import com.bite.user.mapper.UserInfoMapper;
 import com.bite.user.service.UserService;
-import jakarta.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -128,11 +124,11 @@ public class UserServiceImpl implements UserService {
             throw new BlogException("用户名已经存在");
         }
 
-        if (RegexUtil.checkMail(userInfoRegisterRequest.getEmail())) {
+        if (!RegexUtil.checkMail(userInfoRegisterRequest.getEmail())) {
             throw new BlogException("邮箱格式不合法");
         }
 
-        if(RegexUtil.checkURL(userInfoRegisterRequest.getGithubUrl())) {
+        if(!RegexUtil.checkURL(userInfoRegisterRequest.getGithubUrl())) {
             throw new BlogException("githubUrl格式不合法");
         }
     }
